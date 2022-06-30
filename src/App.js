@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import "./App.css";
 import { Navbar, Container, Nav } from "react-bootstrap";
 import bg from "./bg.png";
-import UserFunction from "./components/UserContainer.js";
+import data from "./data.js";
 
 function App() {
+  let [shoes] = useState(data);
   return (
     <div className="App">
       <Navbar className="NavbarContainer" variant="dark">
@@ -24,17 +25,23 @@ function App() {
 
       <div>
         <div className="container">
-          <div
-            sytle={{
-              display: "flex",
-              justifyContent: "center",
-              flexDirection: "row",
-            }}
-          >
-            <UserFunction />
+          <div className="row">
+            {shoes.map(shoes => {
+              return <Card shoes={shoes} key={shoes.id} />;
+            })}
           </div>
         </div>
       </div>
+    </div>
+  );
+}
+
+function Card(props) {
+  return (
+    <div className="col-md-4">
+      <img alt="shoes" src={props.shoes.img} width="50%"></img>
+      <h4>{props.shoes.title}</h4>
+      <p>{props.shoes.price}</p>
     </div>
   );
 }
